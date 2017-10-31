@@ -24,7 +24,7 @@ massive(process.env.CONNECTION_STRING).then( db => {
   console.log('NO DB ERROR'); // if there is error, .then will not run and we won't see this
   // massive looks on root level for db folder, so putting the folder elsewhere is a problem
   // technically, it looks from wherever you run nodemon
-  console.log(db);
+  // console.log(db);
   app.set('db', db);
 });
 
@@ -36,15 +36,14 @@ passport.use(new Auth0Strategy(
     callbackURL: AUTH_CALLBACK_URL
   },
   (accessToken, refreshToken, extraParams, profile, done) => {
-    // const db = app.get('db');
-    app.get('db').find_user([ profile.identities[0].user_id ])
+    const db = app.get('db');
+    db.find_user([ profile.identities[0].user_id ])
     .then( user => {
       if (user[0]) return done(null, user[0].id);
       else {
         const user = profile._json;
-        console.log('user', user);
-        db.create_user([ user.name, user.email, user.picture, user.identities[0].user_id ]);
-        return done(null, user[0].id);
+        db.create_user([ user.name, user.email, user.picture, user.identities[0].user_id ])
+        .then(user => done(null, user[0].id));
       }
     });
     // done(null, profile); // Got rid of this because it will hit done() in the if or the else

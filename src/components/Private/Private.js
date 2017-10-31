@@ -30,7 +30,7 @@ class Private extends Component {
             
             <h1>Joe Bank</h1><hr />
             <h4>Account information:</h4>
-            <p>Username: { user.id ? user.user_name : null }</p>
+            <p>Username: { user.id ? user.username : null }</p>
             <p>Email: { user.id ? user.email : null }</p>
             <p>ID: { user.id ? user.auth_id : null }</p>
             <h4>Available balance: { Math.floor((Math.random() + 1) * 1000) + '.00' } </h4>
