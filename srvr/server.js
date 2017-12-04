@@ -9,9 +9,14 @@ const express = require('express')
     , Auth0Strategy = require('passport-auth0');
 
 const app = express();
-
 app.use(bodyParser.json());
 // app.use(cors());
+
+
+
+
+
+
 app.use(session({ // session config must come before other session initialization
   secret: SECRET,
   resave: false,
@@ -36,10 +41,12 @@ passport.use(new Auth0Strategy(
     callbackURL: AUTH_CALLBACK_URL
   },
   (accessToken, refreshToken, extraParams, profile, done) => {
+    console.log('PROFILE', profile);
+    console.log('_JSON IDENTITIES', profile._json.identities);
     const db = app.get('db');
-    db.find_user([ profile.identities[0].user_id ])
-    .then( user => {
-      if (user[0]) return done(null, user[0].id);
+    db.find_user([ profile.identities[0].user_id ]) // find user_id value in profile obj
+    .then( (user) => { // user is array of user objs found in database
+      if (user[0]) return done(null, user[0].id); // Shannon object has id prop of 3
       else {
         const user = profile._json;
         db.create_user([ user.name, user.email, user.picture, user.identities[0].user_id ])
@@ -78,5 +85,11 @@ passport.deserializeUser((id, done) => {
   // done(null, id);
 }); 
 // called every time thereafter
+
+
+
+
+
+
 
 app.listen(PORT, _ => console.log(`Listening on ${PORT}`));
