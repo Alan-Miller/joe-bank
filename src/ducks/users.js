@@ -1,4 +1,5 @@
 import axios from 'axios';
+// axios.defaults.withCredentials = true;
 
 const initialState = {
   user: {}
@@ -7,7 +8,11 @@ const initialState = {
 const GET_USER_INFO = 'GET_USER_INFO';
 
 export function getUserInfo() {
-  const userData = axios.get('/auth/me')
+  const userData = axios({
+    method: 'GET',
+    url: 'http://localhost:3322/auth/me',
+    withCredentials: true
+  })
   .then(response => response.data);
 
   return {

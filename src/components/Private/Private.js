@@ -34,7 +34,7 @@ class Private extends Component {
             <p>Email: { user.id ? user.email : null }</p>
             <p>ID: { user.id ? user.auth_id : null }</p>
             <h4>Available balance: { Math.floor((Math.random() + 1) * 1000) + '.00' } </h4>
-            <a href={ process.env.REACT_APP_LOGOUT }><button>Log out</button></a>
+            <a href={ process.env.REACT_APP_AUTH0_v2_LOGOUT }><button>Log out</button></a>
           </div> 
       )
   }
