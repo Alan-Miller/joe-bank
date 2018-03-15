@@ -1,6 +1,6 @@
 {
   "name": "joe-bank",
-  "main": "srvr/server.js",
+  "main": "server/index.js",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
