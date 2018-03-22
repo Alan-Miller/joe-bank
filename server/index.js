@@ -28,14 +28,14 @@ app.use((req, res, next) => {
 });
 
 // app.use(cors({
-//   origin: 'http://localhost:3000',
+//   origin: process.env.HOME,
 //   credentials: true
 // }));
 
 app.use((req, res, next) => {
   res.set({
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': 'http://localhost:3000',
+    'Access-Control-Allow-Origin': process.env.HOME,
     'Access-Control-Allow-Methods': 'OPTIONS, GET, POST',
     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
     'Access-Control-Allow-Credentials': true,
@@ -89,8 +89,8 @@ passport.use(new Auth0Strategy(
 app.get('/auth', passport.authenticate('auth0'));
 
 app.get('/auth/callback', passport.authenticate('auth0', {
-  successRedirect: 'http://localhost:3000/#/private', 
-  failureRedirect: 'http://localhost:3000/', 
+  successRedirect: `${process.env.HOME}private`, 
+  failureRedirect: process.env.HOME, 
   // failureRedirect: '/auth', 
   failureFlash: true
 })); // endpoint for callback to see if authenticated
@@ -104,7 +104,7 @@ app.get('/auth/me', (req, res) => {
 
 app.get('/auth/logout', (req, res) => {
   // req.logOut(); // logout method not needed because front end is hitting v2 logout endpoint, which forces logout
-  res.redirect(302, 'http://localhost:3000/#/'); // first argument is status code, then URL for where to go
+  res.redirect(302, process.env.HOME); // first argument is status code, then URL for where to go
 });
 
 passport.serializeUser((id, done) => {

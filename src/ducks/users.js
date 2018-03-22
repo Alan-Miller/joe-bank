@@ -10,7 +10,7 @@ const GET_USER_INFO = 'GET_USER_INFO';
 export function getUserInfo() {
   const userData = axios({
     method: 'GET',
-    url: 'http://localhost:3322/auth/me',
+    url: process.env.REACT_APP_AUTH_ME,
     withCredentials: true
   })
   .then(response => response.data);
