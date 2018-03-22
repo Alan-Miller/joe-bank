@@ -67,7 +67,7 @@ passport.use(new Auth0Strategy(
     domain: AUTH_DOMAIN,
     clientID: AUTH_CLIENT_ID,
     clientSecret: AUTH_CLIENT_SECRET,
-    callbackURL: AUTH_CALLBACK_URL
+    callbackURL: 'http://localhost:3322/auth/callback'
   },
   (accessToken, refreshToken, extraParams, profile, done) => {
     // console.log('PROFILE', profile);
@@ -89,7 +89,7 @@ passport.use(new Auth0Strategy(
 app.get('/auth', passport.authenticate('auth0'));
 
 app.get('/auth/callback', passport.authenticate('auth0', {
-  successRedirect: `${process.env.HOMEPAGE}#/private`, 
+  successRedirect: process.env.PRIVATE_PAGE, 
   failureRedirect: process.env.HOMEPAGE, 
   // failureRedirect: '/auth', 
   failureFlash: true
