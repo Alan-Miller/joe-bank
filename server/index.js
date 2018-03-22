@@ -67,7 +67,7 @@ passport.use(new Auth0Strategy(
     domain: AUTH_DOMAIN,
     clientID: AUTH_CLIENT_ID,
     clientSecret: AUTH_CLIENT_SECRET,
-    callbackURL: AUTH_CALLBACK_URL
+    callbackURL: process.env.AUTH_CALLBACK_URL
   },
   (accessToken, refreshToken, extraParams, profile, done) => {
     // console.log('PROFILE', profile);
