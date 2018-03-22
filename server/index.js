@@ -14,6 +14,8 @@ const app = express();
 //   console.log("HELLO " + ++i)
 // }, 1000)
 
+app.use(express.static( `${__dirname}/../build` ));
+
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {

@@ -9,7 +9,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "program": "${workspaceFolder}/srvr/server.js"
+      "program": "${workspaceFolder}/server/index.js"
     }
   ]
 }
